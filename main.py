@@ -17,7 +17,7 @@ class MyWidget(QMainWindow):
     def initUI(self):
         self.tableWidget.setColumnCount(7)
         self.tableWidget.setRowCount(0)
-        res = cur.connection.cursor().execute("""SELECT * FROM coffee""").fetchall()
+        res = self.connection.cursor().execute("""SELECT * FROM coffee""").fetchall()
         for i, row in enumerate(res):
             self.tableWidget.setRowCount(
                 self.tableWidget.rowCount() + 1)
@@ -40,7 +40,7 @@ class AddWidget(QMainWindow):
         uic.loadUi('addEditCoffeeForm.ui', self)
         self.connection = sqlite3.connect("coffee.sqlite")
         self.pushButton.clicked.connect(self.run)
-        self.backButton.clicked.connect()
+        self.backButton.clicked.connect(self.back)
 
     def run(self):
         name = self.nameEdit.text()
