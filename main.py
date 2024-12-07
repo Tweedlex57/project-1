@@ -1,15 +1,13 @@
-import sqlite3
 import sys
+import sqlite3
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from mainUI import MainUI
+from addEditCoffeeForm import addEditCoffeeFormUI
 
-from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem
-
-
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, MainUI):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
         self.connection = sqlite3.connect("coffee.sqlite")
         self.pushButton.clicked.connect(self.run)
         self.initUI()
@@ -34,10 +32,10 @@ class MyWidget(QMainWindow):
         self.connection.close()
 
 
-class AddWidget(QMainWindow):
+class AddWidget(QMainWindow, addEditCoffeeFormUI):
     def __init__(self):
         super().__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
         self.connection = sqlite3.connect("coffee.sqlite")
         self.pushButton.clicked.connect(self.run)
         self.backButton.clicked.connect(self.back)
